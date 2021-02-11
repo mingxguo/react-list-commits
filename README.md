@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+# React git commits
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The application lists the commits of the [React repository](https://github.com/facebook/react).
 
-## Available Scripts
+## How to use
 
-In the project directory, you can run:
+In the project directory, you can run
 
-### `npm start`
+`yarn install`
 
-Runs the app in the development mode.\
+to install the dependencies and 
+
+`yarn start` 
+
+to run the app in the development mode.
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Project structure
 
-### `npm test`
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
+and I used AntDesign as the CSS framework. All react components developed for the application
+are found under the folder `src/components`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `src/components/app`
 
-### `npm run build`
+In this folder we include the main components of the application, like the modal to show
+user information, the table to list all commits, etc. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### `src/components/common`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+In this folder we include common components which can be reused throughout the application,
+like the application header, the loading message.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `src/components/pages`
 
-### `npm run eject`
+In this folder we include the two views of the application. 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## GitHub API requests
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+I will quickly introduce some decisions I made regarding when to call the GitHub API.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### List of commits
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The list of commits is rendered using a table with custom pagination to allow viewing 
+arbitrary old commits (up to 1000 pages).
+Each time a pagination change occurs a request to the API is made to retrieve the corresponding
+commits. 
 
-## Learn More
+### User information
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The user information is only requested when the modal component is updated (made visible 
+by the parent component) and the requested user is different than before. 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Commit information
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Similar to the user modal, the commit information is only requested when the commit view is
+opened and the component is mounted. 
