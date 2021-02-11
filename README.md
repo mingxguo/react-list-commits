@@ -1,4 +1,4 @@
-# React git commits
+# React list commits
 
 The application lists the commits of the [React repository](https://github.com/facebook/react).
 
